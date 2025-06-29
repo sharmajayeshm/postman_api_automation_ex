@@ -1,0 +1,31 @@
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+
+pm.globals.set("expectedValue", {
+    "count": 1353810,
+    "name": "mary",
+    "gender": "female",
+    "probability": 0.99
+});
+
+
+const response = pm.response.json();
+console.log(response);
+pm.test("Response is valid", () => {
+    pm.expect(response).to.eql(pm.globals.get("expectedValue"))
+})
+
+
+pm.test("Body matches string", function () {
+    pm.expect(pm.response.text()).to.include("female");
+});
+
+pm.test("Content-Type is present", function () {
+    pm.response.to.have.header("Content-Type");
+});
+
+pm.test("Content-Type is present", function () {
+    pm.response.to.have.header("access-control-allow-credentials");
+});
